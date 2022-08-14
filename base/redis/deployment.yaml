@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apicast-testing-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: apicast-testing-redis
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      labels:
+        name: apicast-testing-redis
+    spec:
+      containers:
+        - image: registry.redhat.io/rhel8/redis-6:latest
+          imagePullPolicy: Always
+          name: apicast-testing-redis
+          ports:
+            - containerPort: 6379
+              protocol: TCP
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - name: apicast-testing-redis-storage
+              mountPath: /var/lib/redis/data
+      volumes:
+        - name: apicast-testing-redis-storage
