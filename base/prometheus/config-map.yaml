@@ -1,0 +1,24 @@
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: prometheus-extra-config
+data:
+  prometheus.yml: |-
+    scrape_configs:
+      - job_name: '3scale Apicast Production'
+        scrape_interval: 5s
+        static_configs:
+          - targets: [monitoring-apicast-production:9421]
+            labels:
+              container: "apicast-production"
+      - job_name: '3scale Apicast Staging'
+        scrape_interval: 5s
+        static_configs:
+          - targets: [monitoring-apicast-staging:9421]
+            labels:
+              container: "apicast-staging"
+      - job_name: '3scale operator metrics'
+        scrape_interval: 5s
+        static_configs:
+            - targets: [monitoring-threescale-operator-metrics:8080]
