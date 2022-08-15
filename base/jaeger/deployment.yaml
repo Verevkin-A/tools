@@ -28,7 +28,7 @@ spec:
               value: "9411"
             - name: MAX_TRACES
               value: "50000"
-          image: quay.io/rh_integration/jaeger-aio:latest
+          image: quay.io/jaegertracing/all-in-one
           name: jaeger
           args: ["--memory.max-traces=$(MAX_TRACES)"]
           ports:

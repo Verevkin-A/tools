@@ -27,7 +27,7 @@ images:
   - name: quay.io/mganisin/mockserver
     newName: quay.io/mganisin/mockserver
     newTag: latest
-  - name: quay.io/rh_integration/jaeger-aio
+  - name: quay.io/jaegertracing/all-in-one
     newName: quay.io/rh_integration/jaeger-aio
     newTag: latest
   - name: quay.io/minio/minio
