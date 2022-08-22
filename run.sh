@@ -3,8 +3,8 @@
 
 cd `dirname $0`
 
-for SERVICE_NAME in echo-api fuse-proxy go-httpbin jaeger mockserver; do
-	oc apply -k base/${SERVICE_NAME}/ --namespace ${SHARED_NAMESPACE:=tools}
-done
+oc apply -k overlays/testsuite/ --namespace "${SHARED_NAMESPACE:=tools}"
 
 NAMESPACE=$SHARED_NAMESPACE ./base/rhsso/deploy-rhsso.sh
+
+oc apply -k overlays/exclusive/ --namespace "${THREESCALE_NAMESPACE:=3scale}"
