@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: mailhog
+    app.kubernetes.io/component: mailhog
+    app.kubernetes.io/instance: mailhog
+  name: mailhog
+spec:
+  selector:
+    matchLabels:
+      deployment: mailhog
+  template:
+    metadata:
+      labels:
+        deployment: mailhog
+    spec:
+      containers:
+        - image: ghcr.io/3scale-qe/mailhog-container:latest
+          imagePullPolicy: IfNotPresent
+          name: mailhog
+          ports:
+            - containerPort: 1025
+              protocol: TCP
+            - containerPort: 8025
+              protocol: TCP
+          resources: {}
+      restartPolicy: Always
