@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ../../base/go-httpbin/
   - ../../base/mockserver/
+  - ../../base/jaeger/
 
 images:
   - name: quay.io/rh_integration/go-httpbin
