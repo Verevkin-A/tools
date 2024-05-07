@@ -3,7 +3,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - ../../base/go-httpbin/
   - ../../base/mockserver/
   - ../../base/jaeger/
 
@@ -11,3 +10,27 @@ images:
   - name: quay.io/rh_integration/go-httpbin
     newName: docker.io/mccutchen/go-httpbin
     newTag: latest
+
+patches:
+- patch: |-
+    $patch: delete
+    apiVersion: route.openshift.io/v1
+    kind: Route
+    metadata:
+      name: jaeger-query
+- patch: |-
+    $patch: delete
+    apiVersion: route.openshift.io/v1
+    kind: Route
+    metadata:
+      name: mockserver
+- target:
+    version: v1
+    kind: Service
+    name: jaeger-query
+  path: load_balancer_patch.yaml
+- target:
+    version: v1
+    kind: Service
+    name: mockserver
+  path: load_balancer_patch.yaml
